@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Break from './components/Break';
+import Session from './components/Session';
+import Timer from './components/Timer';
+import StartStopBtn from './components/buttons/StartStopBtn';
+import ResetBtn from './components/buttons/ResetBtn';
+import BreakDecrementBtn from './components/buttons/BreakDecrementBtn';
+import BreakIncrementBtn from './components/buttons/BreakIncrementBtn';
+import SessionDecrementBtn from './components/buttons/SessionDecrementBtn';
+import SessionIncrementBtn from './components/buttons/SessionIncrementBtn';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className='container'>
+            <Break />
+            {/* <BreakDecrementBtn /> */}
+            {/* <BreakIncrementBtn /> */}
+            <Session />
+            {/* <SessionDecrementBtn /> */}
+            {/* <SessionIncrementBtn /> */}
+            <Timer />
+            <StartStopBtn />
+            <ResetBtn />
+        </div>
+    );
 }
 
 export default App;
