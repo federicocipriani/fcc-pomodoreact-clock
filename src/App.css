@@ -24,6 +24,7 @@ body {
         'buttons';
 }
 
+/* BREAK SETTINGS SECTION */
 #settings-break {
     grid-area: settings-break;
     display: grid;
@@ -48,6 +49,8 @@ body {
 #break-increment {
     grid-area: break-increment;
 }
+
+/* SESSION SETTINGS SECTION */
 
 #settings-session {
     grid-area: settings-session;
@@ -74,7 +77,25 @@ body {
     grid-area: session-increment;
 }
 
+/* TIMER SECTION */
+#timer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+}
+
+/* BUTTONS */
+
 button {
     outline: none;
     border: none;
+    background: none;
+}
+
+#reset,
+#start_stop {
+    grid-area: buttons;
+    justify-content: space-evenly;
 }
