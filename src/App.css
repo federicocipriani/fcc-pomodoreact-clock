@@ -89,13 +89,19 @@ body {
 /* BUTTONS */
 
 button {
+    cursor: pointer;
     outline: none;
     border: none;
     background: none;
 }
 
+#buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 #reset,
 #start_stop {
     grid-area: buttons;
-    justify-content: space-evenly;
 }

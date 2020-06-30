@@ -5,17 +5,13 @@ import Session from './components/Session';
 import Timer from './components/Timer';
 import StartStopBtn from './components/buttons/StartStopBtn';
 import ResetBtn from './components/buttons/ResetBtn';
-import BreakDecrementBtn from './components/buttons/BreakDecrementBtn';
-import BreakIncrementBtn from './components/buttons/BreakIncrementBtn';
-import SessionDecrementBtn from './components/buttons/SessionDecrementBtn';
-import SessionIncrementBtn from './components/buttons/SessionIncrementBtn';
 
 class App extends React.Component {
     state = {
         breakLength: 5,
         sessionLength: 25,
         currentTimer: 'Session',
-        timeLeft: '1:00',
+        timeLeft: '25:00',
         isRunning: false,
     };
 
@@ -23,23 +19,41 @@ class App extends React.Component {
         const action = e.target.parentElement.id;
         switch (action) {
             case 'break-decrement':
-                this.state.breakLength > 0 &&
+                this.state.breakLength > 1 &&
                     this.setState({ breakLength: this.state.breakLength - 1 });
                 break;
             case 'break-increment':
-                this.setState({ breakLength: this.state.breakLength + 1 });
+                this.state.breakLength < 60 &&
+                    this.setState({ breakLength: this.state.breakLength + 1 });
                 break;
             case 'session-decrement':
-                this.state.sessionLength > 0 &&
+                if (this.state.sessionLength > 10) {
                     this.setState({
                         sessionLength: this.state.sessionLength - 1,
+                        timeLeft: `${this.state.sessionLength - 1}:00`,
                     });
+                } else if (this.state.sessionLength > 1) {
+                    this.setState({
+                        sessionLength: this.state.sessionLength - 1,
+                        timeLeft: `0${this.state.sessionLength - 1}:00`,
+                    });
+                }
                 break;
             case 'session-increment':
-                this.state.sessionLength < 60 &&
+                if (
+                    this.state.sessionLength < 60 &&
+                    this.state.sessionLength >= 9
+                ) {
                     this.setState({
                         sessionLength: this.state.sessionLength + 1,
+                        timeLeft: `${this.state.sessionLength + 1}:00`,
                     });
+                } else if (this.state.sessionLength < 9) {
+                    this.setState({
+                        sessionLength: this.state.sessionLength + 1,
+                        timeLeft: `0${this.state.sessionLength + 1}:00`,
+                    });
+                }
                 break;
             default:
                 break;
@@ -49,22 +63,31 @@ class App extends React.Component {
     startStopTimer = () => {
         if (!this.state.isRunning) {
             this.setState({ isRunning: true });
+
             this.timer = setInterval(() => {
                 let timeLeft = this.state.timeLeft;
                 let minutes = +timeLeft.match(/\d+/g)[0];
                 let seconds = +timeLeft.match(/\d+/g)[1];
                 if (minutes === 0 && seconds === 0) {
-                    clearInterval(this.timer);
-                    this.setState({ timeLeft: "Time's over" });
+                    if (this.state.currentTimer === 'Session') {
+                        minutes = this.state.breakLength;
+                        seconds = '0';
+                        this.setState({ currentTimer: 'Break' });
+                    } else {
+                        minutes = this.state.sessionLength;
+                        seconds = '0';
+                        this.setState({ currentTimer: 'Session' });
+                    }
                 } else if (seconds !== 0) {
                     seconds -= 1;
                 } else if (seconds === 0) {
                     minutes -= 1;
                     seconds = 59;
                 }
+
                 this.setState({
                     timeLeft:
-                        minutes +
+                        (minutes < 10 ? `0${minutes}` : minutes) +
                         ':' +
                         (seconds < 10 ? `0${seconds}` : seconds),
                 });
@@ -75,10 +98,21 @@ class App extends React.Component {
         }
     };
 
+    resetState = () => {
+        clearInterval(this.timer);
+        this.setState({
+            breakLength: 5,
+            sessionLength: 25,
+            timeLeft: '25:00',
+            isRunning: false,
+        });
+    };
+
     render() {
         return (
             <div className='container'>
                 <Break
+                    index={this.state.index}
                     breakLength={this.state.breakLength}
                     changeNumbers={this.changeNumbers}
                 />
@@ -90,11 +124,13 @@ class App extends React.Component {
                     currentTimer={this.state.currentTimer}
                     timeLeft={this.state.timeLeft}
                 />
-                <StartStopBtn
-                    startStopTimer={this.startStopTimer}
-                    isRunning={this.state.isRunning}
-                />
-                {/* <ResetBtn /> */}
+                <div id='buttons'>
+                    <StartStopBtn
+                        startStopTimer={this.startStopTimer}
+                        isRunning={this.state.isRunning}
+                    />
+                    <ResetBtn reset={this.resetState} />
+                </div>
             </div>
         );
     }

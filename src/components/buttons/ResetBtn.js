@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ResetBtn = () => {
+const ResetBtn = ({ reset }) => {
     return (
-        <button id='reset'>
+        <button id='reset' onClick={reset}>
             <i className='fa fa-times' style={{ color: 'red' }}>
                 {' '}
                 Reset
