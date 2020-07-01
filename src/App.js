@@ -16,43 +16,45 @@ class App extends React.Component {
     };
 
     changeNumbers = (e) => {
-        const action = e.target.parentElement.id;
+        const action = e.currentTarget.value;
+        const element = e.currentTarget.parentElement.id;
+        let sessionLength = this.state.sessionLength;
+        let breakLength = this.state.breakLength;
         switch (action) {
-            case 'break-decrement':
-                this.state.breakLength > 1 &&
-                    this.setState({ breakLength: this.state.breakLength - 1 });
-                break;
-            case 'break-increment':
-                this.state.breakLength < 60 &&
-                    this.setState({ breakLength: this.state.breakLength + 1 });
-                break;
-            case 'session-decrement':
-                if (this.state.sessionLength > 10) {
-                    this.setState({
-                        sessionLength: this.state.sessionLength - 1,
-                        timeLeft: `${this.state.sessionLength - 1}:00`,
-                    });
-                } else if (this.state.sessionLength > 1) {
-                    this.setState({
-                        sessionLength: this.state.sessionLength - 1,
-                        timeLeft: `0${this.state.sessionLength - 1}:00`,
-                    });
+            case '-':
+                if (element === 'settings-session') {
+                    if (sessionLength > 10) {
+                        this.setState({
+                            sessionLength: sessionLength - 1,
+                            timeLeft: `${sessionLength - 1}:00`,
+                        });
+                    } else if (sessionLength > 1) {
+                        this.setState({
+                            sessionLength: sessionLength - 1,
+                            timeLeft: `0${sessionLength - 1}:00`,
+                        });
+                    }
+                } else {
+                    breakLength !== 1 &&
+                        this.setState({ breakLength: breakLength - 1 });
                 }
                 break;
-            case 'session-increment':
-                if (
-                    this.state.sessionLength < 60 &&
-                    this.state.sessionLength >= 9
-                ) {
-                    this.setState({
-                        sessionLength: this.state.sessionLength + 1,
-                        timeLeft: `${this.state.sessionLength + 1}:00`,
-                    });
-                } else if (this.state.sessionLength < 9) {
-                    this.setState({
-                        sessionLength: this.state.sessionLength + 1,
-                        timeLeft: `0${this.state.sessionLength + 1}:00`,
-                    });
+            case '+':
+                if (element === 'settings-session') {
+                    if (sessionLength < 60 && sessionLength >= 9) {
+                        this.setState({
+                            sessionLength: sessionLength + 1,
+                            timeLeft: `${sessionLength + 1}:00`,
+                        });
+                    } else if (sessionLength < 9) {
+                        this.setState({
+                            sessionLength: sessionLength + 1,
+                            timeLeft: `0${sessionLength + 1}:00`,
+                        });
+                    }
+                } else {
+                    breakLength !== 60 &&
+                        this.setState({ breakLength: breakLength + 1 });
                 }
                 break;
             default:
@@ -69,6 +71,7 @@ class App extends React.Component {
                 let minutes = +timeLeft.match(/\d+/g)[0];
                 let seconds = +timeLeft.match(/\d+/g)[1];
                 if (minutes === 0 && seconds === 0) {
+                    this.timerComplete.play();
                     if (this.state.currentTimer === 'Session') {
                         minutes = this.state.breakLength;
                         seconds = '0';
@@ -100,9 +103,12 @@ class App extends React.Component {
 
     resetState = () => {
         clearInterval(this.timer);
+        this.timerComplete.pause();
+        this.timerComplete.currentTime = 0;
         this.setState({
             breakLength: 5,
             sessionLength: 25,
+            currentTimer: 'Session',
             timeLeft: '25:00',
             isRunning: false,
         });
@@ -131,6 +137,14 @@ class App extends React.Component {
                     />
                     <ResetBtn reset={this.resetState} />
                 </div>
+                <audio
+                    id='beep'
+                    preload='auto'
+                    src='https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav'
+                    ref={(audio) => {
+                        this.timerComplete = audio;
+                    }}
+                />
             </div>
         );
     }
