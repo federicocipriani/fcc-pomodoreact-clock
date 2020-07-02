@@ -116,26 +116,30 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className='container'>
-                <Break
-                    index={this.state.index}
-                    breakLength={this.state.breakLength}
-                    changeNumbers={this.changeNumbers}
-                />
-                <Session
-                    sessionLength={this.state.sessionLength}
-                    changeNumbers={this.changeNumbers}
-                />
-                <Timer
-                    currentTimer={this.state.currentTimer}
-                    timeLeft={this.state.timeLeft}
-                />
-                <div id='buttons'>
-                    <StartStopBtn
-                        startStopTimer={this.startStopTimer}
-                        isRunning={this.state.isRunning}
+            <div className='wrapper'>
+                <div className='container'>
+                    <Break
+                        index={this.state.index}
+                        breakLength={this.state.breakLength}
+                        changeNumbers={this.changeNumbers}
                     />
-                    <ResetBtn reset={this.resetState} />
+                    <Session
+                        sessionLength={this.state.sessionLength}
+                        changeNumbers={this.changeNumbers}
+                    />
+                    <div id='buttons'>
+                        <StartStopBtn
+                            startStopTimer={this.startStopTimer}
+                            isRunning={this.state.isRunning}
+                        />
+                        <ResetBtn reset={this.resetState} />
+                    </div>
+                </div>
+                <div>
+                    <Timer
+                        currentTimer={this.state.currentTimer}
+                        timeLeft={this.state.timeLeft}
+                    />
                 </div>
                 <audio
                     id='beep'
@@ -145,6 +149,7 @@ class App extends React.Component {
                         this.timerComplete = audio;
                     }}
                 />
+                <div />
             </div>
         );
     }

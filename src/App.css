@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100&display=swap');
 
 @font-face {
@@ -26,39 +28,54 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     height: 100vh;
-    font-family: 'Noto Sans TC', sans-serif;
+    /* font-family: 'Noto Sans TC', sans-serif; */
+    font-family: 'Roboto', sans-serif;
+    background-color: #40bfc1;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
-    background-color: #fd5e53;
-    height: 420px;
+    background-color: #f5f0e3;
+    height: 300px;
     width: 300px;
     display: grid;
-    grid-template-rows: 1.5fr 1.5fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas:
         'settings-break'
         'settings-session'
-        'timer'
         'buttons';
+    border-radius: 20px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    /* box-shadow: 2px 2px 5px #7e7e7e, -2px 2px 5px #7e7e7e; */
+    /* border: 2px solid black; */
 }
 
 .fa {
-    font-size: 2em;
-    color: white;
+    font-size: 1.5em;
+    color: #40bfc1;
+    /* text-shadow: 1px 1px 2px #ccc; */
 }
 
 /* BREAK SETTINGS SECTION */
 #settings-break {
     grid-area: settings-break;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(2, 1fr);
     grid-template-areas:
         'break-label break-label break-label'
         'break-decrement break-length break-increment';
     justify-items: center;
     align-items: center;
+    color: #40bfc1;
 }
 
 #break-label {
@@ -80,13 +97,14 @@ body {
 #settings-session {
     grid-area: settings-session;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(2, 1fr);
     grid-template-areas:
         'session-label session-label session-label'
         'session-decrement session-length session-increment';
     justify-items: center;
     align-items: center;
+    color: #40bfc1;
 }
 
 #session-label {
@@ -106,6 +124,7 @@ body {
 /* COMMON */
 h1 {
     font-size: 1.5em;
+    font-weight: 100;
 }
 
 #break-length,
@@ -119,11 +138,18 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: -30px;
+    height: 250px;
+    width: 250px;
+    background-color: #ff6f5e;
+    border-radius: 50%;
+    color: white;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 #time-left {
     font-family: 'OPTICalculator', sans-serif;
-    font-size: 3em;
+    font-size: 3.5em;
 }
 
 /* BUTTONS */
@@ -136,12 +162,14 @@ button {
 }
 
 #buttons {
-    display: flex;
+    margin-top: 30px;
+    /* display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start; */
 }
 
 #reset,
 #start_stop {
     grid-area: buttons;
+    padding: 0 10px;
 }
