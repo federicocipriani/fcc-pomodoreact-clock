@@ -5,11 +5,11 @@ const StartStopBtn = ({ startStopTimer, isRunning }) => {
         <button id='start_stop' onClick={startStopTimer}>
             {isRunning ? (
                 <div>
-                    <i className='fa fa-pause'></i> Pause
+                    <i className='fa fa-pause'></i>
                 </div>
             ) : (
                 <div>
-                    <i className='fa fa-play'></i> Play
+                    <i className='fa fa-play'></i>
                 </div>
             )}
         </button>

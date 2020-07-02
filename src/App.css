@@ -1,3 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100&display=swap');
+
+@font-face {
+    font-family: 'OPTICalculator';
+    src: url('//db.onlinewebfonts.com/t/a4e40941cd04772dbe49aa5790ad5905.eot');
+    src: url('//db.onlinewebfonts.com/t/a4e40941cd04772dbe49aa5790ad5905.eot?#iefix')
+            format('embedded-opentype'),
+        url('//db.onlinewebfonts.com/t/a4e40941cd04772dbe49aa5790ad5905.woff2')
+            format('woff2'),
+        url('//db.onlinewebfonts.com/t/a4e40941cd04772dbe49aa5790ad5905.woff')
+            format('woff'),
+        url('//db.onlinewebfonts.com/t/a4e40941cd04772dbe49aa5790ad5905.ttf')
+            format('truetype'),
+        url('//db.onlinewebfonts.com/t/a4e40941cd04772dbe49aa5790ad5905.svg#OPTICalculator')
+            format('svg');
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -9,11 +27,12 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    font-family: 'Noto Sans TC', sans-serif;
 }
 
 .container {
-    background-color: burlywood;
-    height: 500px;
+    background-color: #fd5e53;
+    height: 420px;
     width: 300px;
     display: grid;
     grid-template-rows: 1.5fr 1.5fr 2fr 1fr;
@@ -22,6 +41,11 @@ body {
         'settings-session'
         'timer'
         'buttons';
+}
+
+.fa {
+    font-size: 2em;
+    color: white;
 }
 
 /* BREAK SETTINGS SECTION */
@@ -41,6 +65,7 @@ body {
     grid-area: break-label;
 }
 #break-length {
+    font-family: 'OPTICalculator', sans-serif;
     grid-area: break-length;
 }
 #break-decrement {
@@ -68,6 +93,7 @@ body {
     grid-area: session-label;
 }
 #session-length {
+    font-family: 'OPTICalculator', sans-serif;
     grid-area: session-length;
 }
 #session-decrement {
@@ -77,13 +103,27 @@ body {
     grid-area: session-increment;
 }
 
+/* COMMON */
+h1 {
+    font-size: 1.5em;
+}
+
+#break-length,
+#session-length {
+    font-size: 2em;
+}
+
 /* TIMER SECTION */
 #timer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
+}
+
+#time-left {
+    font-family: 'OPTICalculator', sans-serif;
+    font-size: 3em;
 }
 
 /* BUTTONS */
