@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100&display=swap');
 
 @font-face {
     font-family: 'OPTICalculator';
@@ -30,66 +27,98 @@ body {
     align-items: center;
     text-align: center;
     height: 100vh;
-    /* font-family: 'Noto Sans TC', sans-serif; */
     font-family: 'Roboto', sans-serif;
     background-color: #40bfc1;
 }
 
 .wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: 'title pomodoro-clock .';
+    place-content: center;
+    height: 100vh;
+}
+
+#title {
+    grid-area: title;
+    align-self: center;
+    justify-self: right;
+    text-align: end;
+    font-size: 30px;
+    color: #40bfc1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2),
+        -1px -1px 2px rgba(255, 255, 255, 0.2);
+    margin-right: 2em;
+}
+
+.container {
+    grid-area: pomodoro-clock;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.container {
+.settings {
     background-color: #f5f0e3;
-    height: 300px;
-    width: 300px;
+    height: 250px;
+    width: 280px;
+    padding-top: 1.2em;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 0.5fr;
+    grid-row-gap: 1em;
     grid-template-areas:
         'settings-break'
-        'settings-session'
-        'buttons';
+        'settings-session';
     border-radius: 20px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-    /* box-shadow: 2px 2px 5px #7e7e7e, -2px 2px 5px #7e7e7e; */
-    /* border: 2px solid black; */
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
 }
 
-.fa {
+#minus,
+#plus {
     font-size: 1.5em;
-    color: #40bfc1;
-    /* text-shadow: 1px 1px 2px #ccc; */
+}
+
+#minus {
+    color: #ff6f5e;
+    padding: 0 0.5em;
+}
+
+#plus {
+    color: #21bf73;
+    padding: 0 0.5em;
 }
 
 /* BREAK SETTINGS SECTION */
 #settings-break {
     grid-area: settings-break;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 0.5fr 1fr;
     grid-template-rows: repeat(2, 1fr);
     grid-template-areas:
         'break-label break-label break-label'
         'break-decrement break-length break-increment';
-    justify-items: center;
     align-items: center;
     color: #40bfc1;
 }
 
 #break-label {
+    font-size: 1.2em;
     grid-area: break-label;
 }
+
 #break-length {
-    font-family: 'OPTICalculator', sans-serif;
     grid-area: break-length;
 }
+
 #break-decrement {
     grid-area: break-decrement;
+    justify-self: flex-end;
 }
+
 #break-increment {
     grid-area: break-increment;
+    justify-self: flex-start;
 }
 
 /* SESSION SETTINGS SECTION */
@@ -97,7 +126,7 @@ body {
 #settings-session {
     grid-area: settings-session;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 0.5fr 1fr;
     grid-template-rows: repeat(2, 1fr);
     grid-template-areas:
         'session-label session-label session-label'
@@ -108,17 +137,20 @@ body {
 }
 
 #session-label {
+    font-size: 1.2em;
     grid-area: session-label;
 }
 #session-length {
-    font-family: 'OPTICalculator', sans-serif;
+    /* font-family: 'OPTICalculator', sans-serif; */
     grid-area: session-length;
 }
 #session-decrement {
     grid-area: session-decrement;
+    justify-self: flex-end;
 }
 #session-increment {
     grid-area: session-increment;
+    justify-self: flex-start;
 }
 
 /* COMMON */
@@ -133,18 +165,28 @@ h1 {
 }
 
 /* TIMER SECTION */
-#timer {
+.timer {
+    display: grid;
+    grid-template-rows: 0.5fr 1fr 0.5fr;
+    grid-template-areas:
+        '.'
+        'countdown-clock'
+        'buttons';
+    margin-top: -30px;
+    height: 240px;
+    width: 240px;
+    background-color: #ff6f5e;
+    border-radius: 50%;
+    color: white;
+    box-shadow: 2px 4px 10px 5px rgba(0, 0, 0, 0.1);
+}
+
+#countdown-clock {
+    grid-area: countdown-clock;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: -30px;
-    height: 250px;
-    width: 250px;
-    background-color: #ff6f5e;
-    border-radius: 50%;
-    color: white;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 #time-left {
@@ -162,14 +204,14 @@ button {
 }
 
 #buttons {
-    margin-top: 30px;
-    /* display: flex;
-    justify-content: space-around;
-    align-items: flex-start; */
+    grid-area: buttons;
+    margin-top: 10px;
 }
 
 #reset,
 #start_stop {
-    grid-area: buttons;
+    color: white;
+    font-size: 1em;
     padding: 0 10px;
+    opacity: 0.8;
 }

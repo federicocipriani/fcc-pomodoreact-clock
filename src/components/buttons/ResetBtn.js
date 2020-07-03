@@ -3,7 +3,7 @@ import React from 'react';
 const ResetBtn = ({ reset }) => {
     return (
         <button id='reset' onClick={reset}>
-            <i className='fa fa-sync'></i>
+            <ion-icon name='refresh'></ion-icon>
         </button>
     );
 };

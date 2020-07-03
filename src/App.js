@@ -117,29 +117,35 @@ class App extends React.Component {
     render() {
         return (
             <div className='wrapper'>
-                <div className='container'>
-                    <Break
-                        index={this.state.index}
-                        breakLength={this.state.breakLength}
-                        changeNumbers={this.changeNumbers}
-                    />
-                    <Session
-                        sessionLength={this.state.sessionLength}
-                        changeNumbers={this.changeNumbers}
-                    />
-                    <div id='buttons'>
-                        <StartStopBtn
-                            startStopTimer={this.startStopTimer}
-                            isRunning={this.state.isRunning}
-                        />
-                        <ResetBtn reset={this.resetState} />
-                    </div>
+                <div className='title' id='title'>
+                    <h1>PomodoReact</h1>
+                    <h1>Clock</h1>
                 </div>
-                <div>
-                    <Timer
-                        currentTimer={this.state.currentTimer}
-                        timeLeft={this.state.timeLeft}
-                    />
+                <div className='container' id='pomodoro-clock'>
+                    <div className='settings'>
+                        <Break
+                            index={this.state.index}
+                            breakLength={this.state.breakLength}
+                            changeNumbers={this.changeNumbers}
+                        />
+                        <Session
+                            sessionLength={this.state.sessionLength}
+                            changeNumbers={this.changeNumbers}
+                        />
+                    </div>
+                    <div className='timer'>
+                        <Timer
+                            currentTimer={this.state.currentTimer}
+                            timeLeft={this.state.timeLeft}
+                        />
+                        <div id='buttons'>
+                            <StartStopBtn
+                                startStopTimer={this.startStopTimer}
+                                isRunning={this.state.isRunning}
+                            />
+                            <ResetBtn reset={this.resetState} />
+                        </div>
+                    </div>
                 </div>
                 <audio
                     id='beep'
